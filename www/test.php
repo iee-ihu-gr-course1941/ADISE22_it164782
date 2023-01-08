@@ -15,8 +15,10 @@ switch($r=array_shift($request)){
         switch ($b=array_shift($request)){
             case 'list':
                 handle_player($method);
+            break;
             case 'cards':
                 handle_cards($method);
+            break;
             default:
                 header("HTTP/1.1 404 Not Found");
             break;
@@ -30,6 +32,9 @@ switch($r=array_shift($request)){
 function handle_player($method){
     if($method=='GET'){
         show_players();
+    }
+    elseif($method=='PATCH'){
+        edit_player();
     }
 }
 

@@ -22,7 +22,7 @@ function reset_cards() {
     }
 }
 
-function deal_cards_2P() {
+function deal_cards() {
     global $mysqli;
 
     $player_number = $_GET['key'];

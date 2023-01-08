@@ -81,7 +81,7 @@ function handle_cards($method){
 function deal_cards($method){
     //Μοιράζουμε τις κάρτες
     if($method=='GET'){
-        deal_cards_2P();
+        deal_cards();
     }
 }
 

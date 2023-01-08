@@ -34,7 +34,7 @@ switch($r=array_shift($request)){
             break;
             //Μοίρασμα καρτών
             case 'deal':
-                handle_cards($method);
+                handle_deal($method);
             break;
             default:
                 header("HTTP/1.1 404 Not Found");
@@ -78,7 +78,7 @@ function handle_cards($method){
     }
 }
 
-function deal_cards($method){
+function handle_deal($method){
     //Μοιράζουμε τις κάρτες
     if($method=='GET'){
         deal_cards();

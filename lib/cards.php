@@ -25,46 +25,54 @@ function reset_cards() {
 function deal_cards_2P() {
     global $mysqli;
 
-    $id_1 = 1;
-    $id_2 = 3;
+    $player_number = $_GET['key'];
 
-    for ($i = 1; $i <= 12; $i++) {
+    if($player_number==2){
 
-            $sql = 'UPDATE testcards SET player_id = "1" WHERE id="'.$id_1.'"';
-            $st = $mysqli->prepare($sql);
-            $st->execute();
+        $id_1 = 1;
+        $id_2 = 3;
 
-            $sql = 'UPDATE testcards SET player_id = "1" WHERE id=1+"'.$id_1.'"';
-            $st = $mysqli->prepare($sql);
-            $st->execute();
+        for ($i = 1; $i <= 12; $i++) {
 
-            $sql = 'UPDATE testcards SET player_id = "2" WHERE id="'.$id_2.'"';
-            $st = $mysqli->prepare($sql);
-            $st->execute();
+                $sql = 'UPDATE testcards SET player_id = "1" WHERE id="'.$id_1.'"';
+                $st = $mysqli->prepare($sql);
+                $st->execute();
 
-            $sql = 'UPDATE testcards SET player_id = "2" WHERE id=1+"'.$id_2.'"';
-            $st = $mysqli->prepare($sql);
-            $st->execute();
+                $sql = 'UPDATE testcards SET player_id = "1" WHERE id=1+"'.$id_1.'"';
+                $st = $mysqli->prepare($sql);
+                $st->execute();
+
+                $sql = 'UPDATE testcards SET player_id = "2" WHERE id="'.$id_2.'"';
+                $st = $mysqli->prepare($sql);
+                $st->execute();
+
+                $sql = 'UPDATE testcards SET player_id = "2" WHERE id=1+"'.$id_2.'"';
+                $st = $mysqli->prepare($sql);
+                $st->execute();
+            
+            $id_1 = $id_1+4;
+            $id_2 = $id_2+4;
+        }
+
+        //Εμγάνιση των καρτών αφού μοιράστηκαν 
+        $sql = 'select player_id from testcards';
+        $st = $mysqli->prepare($sql);
+
+        $st->execute();
+        $res = $st->get_result();
+
+        header('Content-type: application/json');
+        print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
+
+    }elseif($player_number==3) {
         
-        $id_1 = $id_1+4;
-        $id_2 = $id_2+4;
+        print "3 players";
+
+    }else{
+        print "dwse swsto arithmo paiktwn (2 or 3)";
     }
 
-    // $sql = 'select * from testcards';
-    // $st = $mysqli->prepare($sql);
-
-    // $st->execute();
-
-
-    // //Εμγάνιση των καρτών αφού μοιράστηκαν 
-    // $sql = 'select * from testcards';
-    // $st = $mysqli->prepare($sql);
-
-    // $st->execute();
-    // $res = $st->get_result();
-
-    // header('Content-type: application/json');
-    // print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
+    
 }
 
 ?>

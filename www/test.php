@@ -16,14 +16,23 @@ switch($r=array_shift($request)){
             case 'list':
                 handle_player($method);
             break;
-            case 'cards':
+            default:
+                header("HTTP/1.1 404 Not Found");
+            break;
+        }
+    break;
+    case 'cards':
+        switch ($b=array_shift($request)){
+            case 'reset':
+                handle_resetCards($method);
+            break;
+            case 'list':
                 handle_cards($method);
             break;
             default:
                 header("HTTP/1.1 404 Not Found");
             break;
         }
-    break;
     default:
         header("HTTP/1.1 404 Not Found");
     exit;
@@ -42,6 +51,14 @@ function handle_cards($method){
     if($method=='GET'){
         show_cards();
     }
+    elseif($method=='PATCH'){
+        deal_cards_2P();
+    }
 }
 
+function handle_resetCards($method){
+    if($method=='PATCH'){
+        reset_cards();
+    }
+}
 ?>

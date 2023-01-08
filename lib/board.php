@@ -1,6 +1,6 @@
 <?php
 
-
+//test
 function show_piece($x,$y) {
 	global $mysqli;
 	

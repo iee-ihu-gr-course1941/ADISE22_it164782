@@ -8,14 +8,24 @@ $method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
 $input = json_decode(file_get_contents('php://input'), true);
 
-
+session_start();
 
 switch($r=array_shift($request)){
     case 'players': 
         switch ($b=array_shift($request)){
             //Εμφάνισης λίστας παικτών
+            case 'register':
+                handle_register($method);
+            break;
             case 'list':
                 handle_player($method);
+            break;
+            case 'login':
+                handle_login($method);
+            break;
+            //Δίνουμε τον αριθμό των παικτών ώστε να ξέρουμε πως θα μοιραστούν οι κάρτες
+            case 'numberOfPlayers':
+                handle_givePlayers($method);
             break;
             default:
                 header("HTTP/1.1 404 Not Found");
@@ -34,30 +44,22 @@ switch($r=array_shift($request)){
             break;
             //Μοίρασμα καρτών
             case 'deal':
-                handle_deal($method);
+                handle_deal();
             break;
             default:
                 header("HTTP/1.1 404 Not Found");
             break;
         }
-    //Case στο οποίο τεστάρω πράγματα
-    case 'test':
-        switch ($b=array_shift($request)){
-            //Τεστ εμφάνισης κάποιου input μου
-            case 'showInput':
-                handle_myInput($method);
-            break;
-        }
-    default:
-        header("HTTP/1.1 404 Not Found");
-    exit;
+}
+//------------------------------------------------------------------- Functions -------------------------------------------------------------------//
+function handle_register($method){
+    if($method=='POST'){
+        create_player();
+    }
 }
 
-function handle_myInput($method){
-    //Εμφάνιση του input που δίνω
-    if($method=='GET'){
-        show_input();
-    }
+function handle_login($method){
+    
 }
 
 function handle_player($method){
@@ -77,18 +79,27 @@ function handle_cards($method){
         show_cards();
     }
 }
-
-function handle_deal($method){
-    //Μοιράζουμε τις κάρτες
-    if($method=='GET'){
-        deal_cards();
+//----------------------- Παίρνουμε τον αριθμό των παικτών και μοιράζουμε τις κάρτες αναλόγως -----------------------//
+function handle_givePlayers($method) {
+    if ($method == 'GET') {
+      $_SESSION['playerNum'] = $_GET['value'];
     }
+    print json_encode(['Players:' => $_SESSION['playerNum']]);
+}
+  
+function handle_deal() {
+    deal_cards($_SESSION['playerNum']);
 }
 
+//-------------------------------------------------------------------------------------------------------------------//
+
+//Βάζουμε ξανά τα φύλλα στην τράπουλα (θέτουμε το user_id=0)
 function handle_resetCards($method){
     //Τα φύλλα μπαίνουν όλα πίσω στη τράπουλα
     if($method=='PATCH'){
         reset_cards();
     }
 }
+
+//------------------------------------------------------------------ End Of Functions ------------------------------------------------------------------//
 ?>

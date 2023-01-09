@@ -49,6 +49,9 @@ function put_cardInTheMiddle($card, $player){
 
 }
 
-
+function show_input() {
+    $input = $_GET['key'];
+    print $input;
+}
 
 ?>

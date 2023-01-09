@@ -22,9 +22,4 @@ function edit_player() {
     $st->execute();
 }
 
-function show_input() {
-    $input = $_GET['key'];
-    print $input;
-}
-
 ?>

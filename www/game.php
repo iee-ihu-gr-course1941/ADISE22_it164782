@@ -53,10 +53,15 @@ switch($r=array_shift($request)){
 }
 //------------------------------------------------------------------- Functions -------------------------------------------------------------------//
 function handle_register($method){
-    if($method=='POST'){
-        $name = 'paulos';
-        $password = '123';
-        register($name, $password);
+    if($method=='GET'){
+        $name = $_GET['name'];
+        $password = $_GET['password'];
+        if($name=="" or $password=="" or $name==null or $password==null) {
+            print json_encode('Παρακαλώ πληκτρολόγησε όλα τα στοιχεία!');
+        }else{
+            register($name, $password);
+        }
+        
     }
 }
 

@@ -57,7 +57,7 @@ function handle_register($method){
         $name = $_GET['name'];
         $password = $_GET['password'];
         if($name=="" or $password=="" or $name==null or $password==null) {
-            print json_encode('Παρακαλώ πληκτρολόγησε όλα τα στοιχεία!');
+            print json_encode('Παρακαλώ πληκτρολόγησε όλα τα στοιχεία για να εγγραφείς!');
         }else{
             register($name, $password);
         }
@@ -66,7 +66,15 @@ function handle_register($method){
 }
 
 function handle_login($method){
-    
+    if($method=='GET'){
+        $name = $_GET['name'];
+        $password = $_GET['password'];
+        if($name=="" or $password=="" or $name==null or $password==null) {
+            print json_encode('Παρακαλώ πληκτρολόγησε όλα τα στοιχεία για να συνδεθείς!');
+        }else{
+            login($name, $password);
+        }
+    }
 }
 
 function handle_player($method){

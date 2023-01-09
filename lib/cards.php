@@ -31,9 +31,13 @@ function deal_cards() {
 
         $id_1 = 1;
         $id_2 = 3;
+        
+        for ($i = 1; $i <= 6; $i++) {
 
-        for ($i = 1; $i <= 12; $i++) {
-
+            // print json_encode(['Επανάληψη:' => "$i"]);
+            // print json_encode(['id_1:' => "$id_1"]);
+            // print json_encode(['id_2' => "$id_2"]);
+            
                 $sql = 'UPDATE testcards SET player_id = "1" WHERE id="'.$id_1.'"';
                 $st = $mysqli->prepare($sql);
                 $st->execute();
@@ -52,6 +56,8 @@ function deal_cards() {
             
             $id_1 = $id_1+4;
             $id_2 = $id_2+4;
+
+            
         }
 
         //Εμγάνιση των καρτών αφού μοιράστηκαν 

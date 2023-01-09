@@ -54,7 +54,9 @@ switch($r=array_shift($request)){
 //------------------------------------------------------------------- Functions -------------------------------------------------------------------//
 function handle_register($method){
     if($method=='POST'){
-        create_player();
+        $name = 'paulos';
+        $password = '123';
+        register($name, $password);
     }
 }
 

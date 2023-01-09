@@ -15,7 +15,7 @@ function show_cards() {
 function reset_cards() {
     global $mysqli;
 
-    for ($i = 1; $i <= 36; $i++) {
+    for ($i = 1; $i <= 52; $i++) {
         $sql = 'UPDATE testcards SET player_id = "0" WHERE id="'.$i.'"';
             $st = $mysqli->prepare($sql);
             $st->execute();

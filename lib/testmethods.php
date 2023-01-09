@@ -54,4 +54,12 @@ function show_input() {
     print $input;
 }
 
+function add_toArray($testArray) {
+    $id = 'test';
+    $testArray[] = $id;
+    $length = count($testArray);
+    print json_encode(['length after the insert:'=> $length]);
+    print json_encode($testArray);
+}
+
 ?>

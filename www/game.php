@@ -113,15 +113,9 @@ function handle_cards($method){
     }
 }
 //----------------------- Παίρνουμε τον αριθμό των παικτών και μοιράζουμε τις κάρτες αναλόγως -----------------------//
-function handle_givePlayers($method) {
-    if ($method == 'GET') {
-      $_SESSION['playerNum'] = $_GET['value'];
-    }
-    print json_encode(['Players:' => $_SESSION['playerNum']]);
-}
   
 function handle_deal() {
-    deal_cards($_SESSION['playerNum']);
+    deal_cards($_SESSION['playerCount']);
 }
 
 //-------------------------------------------------------------------------------------------------------------------//

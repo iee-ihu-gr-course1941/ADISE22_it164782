@@ -8,7 +8,11 @@ $method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'], '/'));
 $input = json_decode(file_get_contents('php://input'), true);
 
+//Αρχικοποίηση κενού πίνακα του πλήθους των παικτών
+
+
 session_start();
+
 
 switch($r=array_shift($request)){
     case 'players': 
@@ -21,7 +25,10 @@ switch($r=array_shift($request)){
                 handle_player($method);
             break;
             case 'login':
-                handle_login($method);
+                handle_login($method, $_SESSION['playerCount']);
+            break;
+            case 'logout':
+                handle_logout($method, $_SESSION['playerCount']);
             break;
             //Δίνουμε τον αριθμό των παικτών ώστε να ξέρουμε πως θα μοιραστούν οι κάρτες
             case 'numberOfPlayers':
@@ -65,14 +72,25 @@ function handle_register($method){
     }
 }
 
-function handle_login($method){
+function handle_login($method, $playerCount){
     if($method=='GET'){
         $name = $_GET['name'];
         $password = $_GET['password'];
         if($name=="" or $password=="" or $name==null or $password==null) {
             print json_encode('Παρακαλώ πληκτρολόγησε όλα τα στοιχεία για να συνδεθείς!');
         }else{
-            login($name, $password);
+            login($name, $password, $_SESSION['playerCount']);
+        }
+    }
+}
+
+function handle_logout($method, $playerCount){
+    if($method=='GET'){
+        $id = $_GET['id'];
+        if($id==""or $id==null) {
+            print json_encode('Παρακαλώ πληκτρολόγησε όλα τα στοιχεία για να συνδεθείς!');
+        }else{
+            logout($id, $_SESSION['playerCount']);
         }
     }
 }
